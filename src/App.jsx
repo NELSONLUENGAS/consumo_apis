@@ -1,35 +1,75 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
+import Pokemons from './views/Pokemons';
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [pokemonsState, setPokemonsState] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const API_URL = 'https://pokeapi.co/api/v2/pokemon?limit=30';
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const FetchPokemons = async (api_url) => {
+		setLoading(true);
+		const response = await fetch(api_url);
+		const { results: pokemonsURL } = await response.json();
+
+		const results = await Promise.all(
+			pokemonsURL.map(async (pokemon) => {
+				const pokemonDetail = await fetch(pokemon.url);
+				const {
+					base_experience,
+					weight,
+					height,
+					id,
+					name,
+					types,
+					species,
+					stats,
+					sprites,
+				} = await pokemonDetail.json();
+
+				return {
+					id,
+					name,
+					weight,
+					height,
+					specie: species.name,
+					base_experience,
+					types: types.map((type) => type.type.name),
+					stats: stats.map((stat) => ({
+						name: stat.stat.name,
+						value: stat.base_stat,
+					})),
+					image: sprites.other.home.front_default,
+				};
+			})
+		);
+
+		setLoading(false);
+		setPokemonsState(results);
+	};
+
+	// const FecthPizzas = async (url) => {
+	// 	const response = await fetch(url);
+	// 	const pizzas = await response.json();
+
+	// 	console.log(pizzas);
+	// };
+
+	useEffect(() => {
+		// Fetch pokemons
+		FetchPokemons(API_URL);
+
+		// FecthPizzas('http://localhost:5000/api/pizzas');
+	}, []);
+
+	return (
+		<>
+			<Pokemons
+				data={pokemonsState}
+				loading={loading}
+			/>
+		</>
+	);
 }
 
-export default App
+export default App;
