@@ -12,7 +12,23 @@ const PokeCard = ({
 	types,
 	stats,
 	image,
+	handleAddToCart,
 }) => {
+	const handleAdd = () => {
+		const pokemon = {
+			id,
+			name,
+			weight,
+			height,
+			specie,
+			base_experience,
+			types,
+			stats,
+			image,
+		};
+		handleAddToCart(pokemon);
+	};
+
 	return (
 		<>
 			<div className="card">
@@ -58,12 +74,12 @@ const PokeCard = ({
 								</li>
 							))}
 					</ul>
-					<a
-						href="#!"
-						className="btn btn-link link-secondary p-md-1 mb-0"
+					<button
+						className="btn p-md-1 mb-0"
+						onClick={handleAdd}
 					>
-						ADD FAVORITE
-					</a>
+						Add To Power Zone
+					</button>
 				</div>
 			</div>
 		</>

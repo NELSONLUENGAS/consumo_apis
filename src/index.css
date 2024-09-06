@@ -4,6 +4,28 @@
 	padding: 0;
 }
 
+:root,
+[data-theme='dark'] {
+	--backgroundColorPoke: #000;
+	--textColorPoke: #fff;
+}
+
+:root,
+[data-theme='light'] {
+	--backgroundColorPoke: #fff;
+	--textColorPoke: #000;
+}
+
+body {
+	transition: all ease-out 0.5s;
+	background-color: var(--backgroundColorPoke) !important;
+}
+
+.text-color-poke {
+	transition: all ease-out 0.5s;
+	color: var(--textColorPoke) !important;
+}
+
 .poke-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

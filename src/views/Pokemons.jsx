@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PokeSpinner from '../components/PokeSpinner';
 import PokeCard from '../components/PokeCard';
+import { PokeContext } from '../context/PokeProvider';
 
-const Pokemons = ({ data, loading }) => {
+const Pokemons = () => {
+	const { pokemons, loading, handleAddToCart } = useContext(PokeContext);
+
 	return (
 		<>
 			{loading ? (
@@ -10,10 +13,11 @@ const Pokemons = ({ data, loading }) => {
 			) : (
 				<div className="container">
 					<div className="poke-grid">
-						{data.map((pokemon, index) => (
+						{pokemons?.map((pokemon, index) => (
 							<PokeCard
 								key={index}
 								{...pokemon}
+								handleAddToCart={handleAddToCart}
 							/>
 						))}
 					</div>
