@@ -1,52 +1,37 @@
 import React from 'react';
 import { SwitchInput } from './UI/SwitchInput';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const PokeHeader = () => {
+	const handleIsAvtive = ({ isActive }) => {
+		return isActive
+			? 'nav-link px-2 text-color-poke_active navLink_active'
+			: 'nav-link px-2  text-color-poke';
+	};
 	return (
 		<>
 			<header className="p-3 mb-3 border-bottom">
 				<div className="container">
 					<div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-						<a
-							href="#"
-							className="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none text-color-poke"
-						>
-							<SwitchInput />
-						</a>
+						<SwitchInput />
 
 						<ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 							<li>
-								<a
-									href="#"
-									className="nav-link px-2 text-color-poke"
-								>
-									Overview
-								</a>
-							</li>
-							<li>
-								<a
-									href="#"
-									className="nav-link px-2 text-color-poke"
-								>
-									Inventory
-								</a>
-							</li>
-							<li>
-								<Link
-									to="/power"
-									className="nav-link px-2  text-color-poke"
-								>
-									Customers
-								</Link>
-							</li>
-							<li>
-								<Link
+								<NavLink
 									to="/"
-									className="nav-link px-2 text-color-poke"
+									className={handleIsAvtive}
 								>
-									Products
-								</Link>
+									Pokemons
+								</NavLink>
+							</li>
+
+							<li>
+								<NavLink
+									to="/power"
+									className={handleIsAvtive}
+								>
+									Power Zone
+								</NavLink>
 							</li>
 						</ul>
 

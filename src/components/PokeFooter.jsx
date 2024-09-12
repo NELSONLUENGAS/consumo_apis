@@ -9,7 +9,7 @@ export const PokeFooter = () => {
 						<li className="nav-item">
 							<a
 								href="#"
-								className="nav-link px-2 text-body-secondary"
+								className="nav-link px-2 text-color-poke"
 							>
 								Home
 							</a>
@@ -17,7 +17,7 @@ export const PokeFooter = () => {
 						<li className="nav-item">
 							<a
 								href="#"
-								className="nav-link px-2 text-body-secondary"
+								className="nav-link px-2 text-color-poke"
 							>
 								Features
 							</a>
@@ -25,7 +25,7 @@ export const PokeFooter = () => {
 						<li className="nav-item">
 							<a
 								href="#"
-								className="nav-link px-2 text-body-secondary"
+								className="nav-link px-2 text-color-poke"
 							>
 								Pricing
 							</a>
@@ -33,7 +33,7 @@ export const PokeFooter = () => {
 						<li className="nav-item">
 							<a
 								href="#"
-								className="nav-link px-2 text-body-secondary"
+								className="nav-link px-2 text-color-poke"
 							>
 								FAQs
 							</a>
@@ -41,13 +41,13 @@ export const PokeFooter = () => {
 						<li className="nav-item">
 							<a
 								href="#"
-								className="nav-link px-2 text-body-secondary"
+								className="nav-link px-2 text-color-poke"
 							>
 								About
 							</a>
 						</li>
 					</ul>
-					<p className="text-center text-body-secondary">© 2024 Company, Inc</p>
+					<p className="text-center text-color-poke">© 2024 Company, Inc</p>
 				</div>
 			</footer>
 		</>

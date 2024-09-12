@@ -10,7 +10,7 @@ export const SwitchInput = () => {
 	};
 
 	return (
-		<Form>
+		<Form className="px-4 text-color-poke">
 			<Form.Check
 				type="switch"
 				id="custom-switch"
