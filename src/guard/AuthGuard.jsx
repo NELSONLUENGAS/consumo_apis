@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { UserContext } from '../context/UserProvider';
 
 const AuthGuard = ({ isAllow, redirectTo = '/', children }) => {
-	if (!isAllow) {
+	const { userSession } = useContext(UserContext);
+	if (!userSession) {
 		return (
 			<Navigate
 				to={redirectTo}

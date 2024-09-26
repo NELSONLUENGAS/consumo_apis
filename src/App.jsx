@@ -13,75 +13,84 @@ import { PokePower } from './views/PokePower';
 import AdminLayout from './layout/AdminLayout';
 import PokeDetail from './views/PokeDetail';
 import AuthGuard from './guard/AuthGuard';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import PokeLogin from './views/PokeLogin';
+import PokeRegister from './views/PokeRegister';
+import { UserContext, UserProvider } from './context/UserProvider';
+import PokeProfile from './views/PokeProfile';
 
 function App() {
-	const [session, setSession] = useState({
-		roles: ['admin'],
-		username: 'PepitoPerez_123',
-		gmail: 'pepito@gmail.com',
-	});
-
 	return (
 		<>
-			<ThemeProvider>
-				<Router>
-					<Routes>
-						<Route
-							path="/"
-							element={
-								<PokeProvider>
-									<Layout />
-								</PokeProvider>
-							}
-						>
+			<Router>
+				<ThemeProvider>
+					<UserProvider>
+						<Routes>
 							<Route
-								index
-								element={<Pokemons />}
-							/>
-
-							<Route
-								path="/power"
-								element={<PokePower />}
-							/>
-
-							<Route
-								path="/pokemon/:id"
-								element={<PokeDetail />}
-							/>
-
-							<Route
-								path="/perfil"
+								path="/"
 								element={
-									<AuthGuard
-										isAllow={session.roles.includes('guest')}
-										redirectTo="/login"
-									/>
+									<PokeProvider>
+										<Layout />
+									</PokeProvider>
 								}
 							>
 								<Route
 									index
-									element={<h1>Hola perfil</h1>}
+									element={<Pokemons />}
+								/>
+
+								<Route
+									path="/power"
+									element={<PokePower />}
+								/>
+
+								<Route
+									path="/login"
+									element={<PokeLogin />}
+								/>
+								<Route
+									path="/register"
+									element={<PokeRegister />}
+								/>
+
+								<Route
+									path="/pokemon/:id"
+									element={<PokeDetail />}
+								/>
+
+								<Route
+									path="/perfil"
+									element={
+										<AuthGuard
+											isAllow={false}
+											redirectTo="/login"
+										/>
+									}
+								>
+									<Route
+										index
+										element={<PokeProfile />}
+									/>
+								</Route>
+							</Route>
+
+							<Route
+								path="/admin"
+								element={
+									<AuthGuard isAllow={true}>
+										<AdminLayout />
+									</AuthGuard>
+								}
+							>
+								<Route
+									index
+									element={<h1>Hola Admin</h1>}
 								/>
 							</Route>
-						</Route>
-
-						<Route
-							path="/admin"
-							element={
-								<AuthGuard isAllow={session.roles.includes('admin')}>
-									<AdminLayout />
-								</AuthGuard>
-							}
-						>
-							<Route
-								index
-								element={<h1>Hola Admin</h1>}
-							/>
-						</Route>
-					</Routes>
-				</Router>
-			</ThemeProvider>
+						</Routes>
+					</UserProvider>
+				</ThemeProvider>
+			</Router>
 		</>
 	);
 }

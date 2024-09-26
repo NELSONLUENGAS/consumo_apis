@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SwitchInput } from './UI/SwitchInput';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import { UserContext } from '../context/UserProvider';
 
 export const PokeHeader = () => {
 	const handleIsAvtive = ({ isActive }) => {
@@ -8,6 +10,9 @@ export const PokeHeader = () => {
 			? 'nav-link px-2 text-color-poke_active navLink_active'
 			: 'nav-link px-2  text-color-poke';
 	};
+
+	const { userSession } = useContext(UserContext);
+
 	return (
 		<>
 			<header className="p-3 mb-3 border-bottom">
@@ -48,57 +53,81 @@ export const PokeHeader = () => {
 						</form>
 
 						<div className="dropdown text-end">
-							<a
-								href="#"
-								className="d-block text-decoration-none dropdown-toggle"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								<img
-									src="https://github.com/mdo.png"
-									alt="mdo"
-									width="32"
-									height="32"
-									className="rounded-circle"
-								/>
-							</a>
-							<ul className="dropdown-menu text-small">
-								<li>
-									<a
-										className="dropdown-item text-color-poke"
-										href="#"
+							{!userSession ? (
+								<>
+									<Button
+										variant="info"
+										as={Link}
+										to="/login"
 									>
-										New project...
-									</a>
-								</li>
-								<li>
-									<a
-										className="dropdown-item text-color-poke"
-										href="#"
+										Login
+									</Button>{' '}
+									<Button
+										variant="light"
+										as={Link}
+										to="/register"
 									>
-										Settings
-									</a>
-								</li>
-								<li>
+										Register
+									</Button>
+								</>
+							) : (
+								<>
 									<a
-										className="dropdown-item text-color-poke"
 										href="#"
+										className="d-block text-decoration-none dropdown-toggle"
+										data-bs-toggle="dropdown"
+										aria-expanded="false"
 									>
-										Profile
+										<img
+											src="./pokeball.png"
+											alt="mdo"
+											width="32"
+											height="32"
+											className="rounded-circle"
+										/>
 									</a>
-								</li>
-								<li>
-									<hr className="dropdown-divider" />
-								</li>
-								<li>
-									<a
-										className="dropdown-item text-color-poke"
-										href="#"
+									<ul
+										style={{ display: 'block' }}
+										className="dropdown-menu text-small"
 									>
-										Sign out
-									</a>
-								</li>
-							</ul>
+										<li>
+											<a
+												className="dropdown-item text-color-poke"
+												href="#"
+											>
+												New project...
+											</a>
+										</li>
+										<li>
+											<a
+												className="dropdown-item text-color-poke"
+												href="#"
+											>
+												Settings
+											</a>
+										</li>
+										<li>
+											<Link
+												className="dropdown-item text-color-poke"
+												to="/perfil"
+											>
+												Profile
+											</Link>
+										</li>
+										<li>
+											<hr className="dropdown-divider" />
+										</li>
+										<li>
+											<a
+												className="dropdown-item text-color-poke"
+												href="#"
+											>
+												Sign out
+											</a>
+										</li>
+									</ul>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
